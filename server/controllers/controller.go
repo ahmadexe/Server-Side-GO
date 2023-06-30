@@ -43,6 +43,7 @@ func init() {
 }
 
 func insertOneMovie(movie models.Movie) {
+	fmt.Println(movie)
 	i, err := collection.InsertOne(ctxBg, movie)
 	if err != nil {
 		exceptions.Handle("Error inserting one movie")
@@ -120,6 +121,7 @@ func CreateMovie(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Access-Control-Allow-Origin", "POST")
 	var movie models.Movie
 	_ = json.NewDecoder(r.Body).Decode(&movie)
+	fmt.Println("Movie: ", movie)
 	insertOneMovie(movie)
 	enc := json.NewEncoder(w)
 	enc.Encode(movie)
